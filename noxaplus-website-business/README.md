@@ -6,4 +6,4 @@
 - تست: `node --test tests/site.test.cjs` و `node js/check-i18n.js`
 - اجرای محلی: `python -m http.server 8000`
 
-نسخهٔ ۱.۰.۰ — ۱۸ نوامبر ۲۰۲۶
+نسخهٔ ۱.۰.۱ — ۱۸ نوامبر ۲۰۲۶

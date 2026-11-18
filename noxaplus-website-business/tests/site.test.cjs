@@ -50,9 +50,7 @@ function localTarget(from, reference) {
   const fragment = url.hash ? decodeURIComponent(url.hash.slice(1)) : '';
   url.hash = '';
   url.search = '';
-  let target = fileURLToPath(url);
-  if (target.endsWith(path.sep)) target = path.join(target, 'index.html');
-  return { file: target, fragment };
+  return { file: fileURLToPath(url), fragment };
 }
 function checkReference(from, reference, checkFragment = false) {
   const target = localTarget(from, reference);
@@ -64,6 +62,27 @@ function checkReference(from, reference, checkFragment = false) {
       `${from}: missing fragment ${reference}`);
   }
 }
+
+test('repository entry redirects to the actual homepage for file and HTTP URLs', () => {
+  const entryPath = path.join(root, '..', 'index.html');
+  const html = fs.readFileSync(entryPath, 'utf8');
+  const elements = tags(html);
+  const destination = 'noxaplus-website-business/index.html';
+  const refresh = elements.find(({ name, attrs }) => name === 'meta' && attrs['http-equiv']?.toLowerCase() === 'refresh');
+  assert.equal(refresh?.attrs.content, `0; url=${destination}`);
+  const links = elements.filter(({ name, attrs }) => name === 'a' && attrs.href);
+  assert.ok(links.length >= 2);
+  for (const link of links) assert.equal(link.attrs.href, destination);
+  const script = html.match(/<script>([\s\S]*?)<\/script>/i)?.[1];
+  assert.ok(script, 'entry redirect script missing');
+  let redirected;
+  vm.runInNewContext(script, { location: { replace(value) { redirected = value; } } }, { timeout: 1000 });
+  assert.equal(redirected, destination);
+  const fileUrl = new URL(destination, pathToFileURL(entryPath));
+  assert.equal(fileURLToPath(fileUrl), path.join(root, 'index.html'));
+  assert.ok(fs.statSync(fileURLToPath(fileUrl)).isFile());
+  assert.equal(new URL(destination, 'https://localhost/site/').pathname, '/site/noxaplus-website-business/index.html');
+});
 
 for (const page of pages) {
   test(`${page}: document, local resources and links`, () => {
@@ -129,6 +148,8 @@ test('contact form explicitly offers local output without server submission', ()
   const formTags = tags(match);
   const form = formTags.find((tag) => tag.name === 'form');
   assert.ok(!form.attrs.action, 'contact form must not submit to a server');
+  assert.match(match, /<fieldset\b[^>]*\bid=["']contactFields["'][^>]*\bdisabled\b[^>]*>[\s\S]*?<input\b[\s\S]*?<button\b[^>]*type=["']submit["'][\s\S]*?<\/fieldset>/i, 'form controls must be disabled until JavaScript starts');
+  assert.ok(formTags.some(({ name, attrs }) => name === 'p' && attrs.id === 'contactUnavailable'), 'JavaScript fallback message missing');
   assert.ok(formTags.some(({ name, attrs }) => name === 'textarea' && attrs.id === 'contactOutput' && Object.hasOwn(attrs, 'readonly')), 'read-only local output missing');
   assert.ok(formTags.some(({ name, attrs }) => name === 'button' && attrs.id === 'copyContact' && attrs.type === 'button'), 'copy button missing');
   assert.match(match, /data-i18n\s*=\s*["']form\.hint["'][^>]*>[^<]*(?:ارسال|صفحه)/i);
@@ -143,14 +164,34 @@ test('contact form explicitly offers local output without server submission', ()
   const output = { value: '' };
   const result = { hidden: true };
   const copy = { addEventListener() {} };
+  const fieldset = { disabled: true };
+  const unavailable = { hidden: false };
   const stub = { ...fields, elements: { namedItem(name) { return fields[name]; } }, addEventListener(type, fn) { if (type === 'submit') submit = fn; }, querySelector(selector) { return selector === '#contactOutput' ? output : selector === '#contactResult' ? result : null; }, reset() {} };
-  const document = { querySelector(selector) { return selector === '#contactForm' ? stub : selector === '#contactOutput' ? output : selector === '#contactResult' ? result : selector === '#copyContact' ? copy : null; }, getElementById(id) { return id === 'contactOutput' ? output : id === 'contactResult' ? result : null; } };
+  const document = { querySelector(selector) { return selector === '#contactForm' ? stub : selector === '#contactOutput' ? output : selector === '#contactResult' ? result : selector === '#copyContact' ? copy : selector === '#contactFields' ? fieldset : selector === '#contactUnavailable' ? unavailable : null; }, getElementById(id) { return id === 'contactOutput' ? output : id === 'contactResult' ? result : null; } };
   vm.runInNewContext(`${main.slice(start, end)}\ninitContactForm();`, { document, t: (key) => key, showToast() {} }, { timeout: 1000 });
   assert.equal(typeof submit, 'function', 'submit handler missing');
+  assert.equal(fieldset.disabled, false);
+  assert.equal(unavailable.hidden, true);
   let prevented = false;
   submit({ preventDefault() { prevented = true; } });
   assert.ok(prevented, 'submit must be handled locally');
   assert.ok(output.value.includes('Test User') && output.value.includes('Hello') && !result.hidden, 'valid submission must display the prepared local output');
+});
+
+test('planner share links never expose a local file path', () => {
+  const source = read('js/planner.js');
+  const start = source.indexOf('  function shareUrl()');
+  const end = source.indexOf('\n  let restored =', start);
+  assert.ok(start >= 0 && end > start, 'planner share function missing');
+  const run = (href) => vm.runInNewContext(`${source.slice(start, end)}\nshareUrl();`, {
+    URL, URLSearchParams, location: { href },
+    current: () => ({ type: 'business', scope: 'medium', features: ['seo', 'cms'] }),
+  }, { timeout: 1000 });
+  assert.equal(run('file:///C:/Users/Example/planner.html'), null);
+  const shared = new URL(run('https://localhost/planner.html?ignored=1'));
+  assert.equal(shared.search, '');
+  assert.equal(shared.pathname, '/planner.html');
+  assert.equal(shared.hash, '#type=business&scope=medium&features=seo%2Ccms');
 });
 
 test('translation checker reports complete, consistent dictionaries', () => {

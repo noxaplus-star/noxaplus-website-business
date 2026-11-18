@@ -6,7 +6,7 @@
 
 <p align="center">
   وب‌سایت دوزبانه و واکنش‌گرای شرکتی برای نوکساپلاس — طراحی، فروشگاه، برندینگ و سئو<br>
-  <strong>نسخهٔ ۱.۰.۰</strong> · ۱۸ نوامبر ۲۰۲۶
+  <strong>نسخهٔ ۱.۰.۱</strong> · ۱۸ نوامبر ۲۰۲۶
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="CHANGELOG.md">تغییرات</a>
 </p>
 
-> **پروژه به‌روزرسانی شد — نسخهٔ ۱.۰.۰ (۲۰۲۶-۱۱-۱۸):** همهٔ صفحه‌ها بازبینی شدند، خطاهای چیدمان و دسترس‌پذیری برطرف شد و ده قابلیت تازه از جمله برنامه‌ریز پروژه، فرم آماده‌سازی پیام و جست‌وجوی پرسش‌ها اضافه شد. جزئیات در [CHANGELOG.md](CHANGELOG.md).
+> **پروژه به‌روزرسانی شد — نسخهٔ ۱.۰.۱ (۲۰۲۶-۱۱-۱۸):** بازکردن فایل ورودی محلی اصلاح شد، فرم هنگام غیرفعال‌بودن جاوااسکریپت از ارسال ناخواسته محافظت می‌شود و اشتراک برنامه‌ریز دیگر مسیر فایل محلی را کپی نمی‌کند. جزئیات در [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -74,7 +74,7 @@ python -m http.server 8000
 # سپس http://localhost:8000
 ```
 
-یا فایل `noxaplus-website-business/index.html` را در مرورگر باز کنید. (فایل `index.html` در ریشه فقط به پوشهٔ سایت هدایت می‌کند.)
+یا فایل `index.html` در ریشهٔ پروژه را با دوبارکلیک در مرورگر باز کنید؛ به صفحهٔ اصلی سایت هدایت می‌شوید. همچنین می‌توانید مستقیماً `noxaplus-website-business/index.html` را باز کنید. برای اشتراک لینک برنامه‌ریز، از نسخهٔ آنلاین استفاده کنید.
 
 ## ساختار
 
@@ -112,7 +112,7 @@ NoxaPlus-WebSite-Business/
 cd noxaplus-website-business
 node --check js/main.js
 node --check js/planner.js
-node --test tests/site.test.cjs   # ۲۷ آزمون ساختاری
+node --test tests/site.test.cjs   # ۲۹ آزمون ساختاری
 node js/check-i18n.js             # بررسی کامل‌بودن ترجمه‌ها
 ```
 
@@ -134,7 +134,7 @@ node js/check-i18n.js             # بررسی کامل‌بودن ترجمه‌
 
 **Live demo:** https://noxaplus-star.github.io/noxaplus-website-business/
 
-**Version 1.0.0 — updated 2026-11-18.** See [CHANGELOG.md](CHANGELOG.md).
+**Version 1.0.1 — updated 2026-11-18.** The root entry opens correctly from local files, the contact form stays disabled until JavaScript is ready, and local file paths are not copied in share links. See [CHANGELOG.md](CHANGELOG.md).
 
 Highlights: a project planner with live estimates, local drafts, print output, and a privacy-safe share link; full RTL/LTR language switching; light/dark themes with logo swapping; a local-only contact message composer; accessible portfolio filtering and modal; testimonial carousel; FAQ search; scroll progress and reduced-motion-aware reveals; a mobile drawer with Escape handling; and skip-link/keyboard accessibility throughout.
 

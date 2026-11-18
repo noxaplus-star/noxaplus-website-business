@@ -63,7 +63,7 @@ try {
   <div class="container" style="padding:0.8rem 1rem;margin-top:1rem;text-align:center;border:1px solid #b45309;border-radius:0.5rem;background:#fffbeb;color:#78350f;font-weight:700" data-i18n="demo.notice">این سایت نمایشی است؛ داده‌ها نمونه و تأییدنشده‌اند و باید با اطلاعات واقعی جایگزین شوند.</div>
   <div class="container page-hero">
     <h1 data-i18n="contact.title">تماس با ما</h1>
-    <p data-i18n="contact.lead">برای شروع پروژه، همین فرم کافی است.</p>
+    <p data-i18n="contact.lead">متن درخواستتان را آماده و از مسیر ارتباطی دلخواه ارسال کنید.</p>
   </div>
   <section class="section" style="padding-top:1.2rem">
     <div class="container contact-grid">
@@ -78,6 +78,7 @@ try {
       </aside>
       <div class="card">
         <form id="contactForm" novalidate>
+          <fieldset id="contactFields" class="contact-fields" disabled>
           <div class="form-row">
             <div class="form-group">
               <label for="name" data-i18n="form.name">نام کامل</label>
@@ -115,7 +116,9 @@ try {
             </div>
             <button class="btn btn-ghost" type="button" id="copyContact" data-i18n="btn.copy">کپی متن</button>
           </div>
+          </fieldset>
           <p class="section-lead" style="text-align:start;margin:0.8rem 0 0" data-i18n="form.hint">هیچ ارسالی انجام نمی‌شود؛ پیام فقط در همین صفحه برای کپی آماده می‌شود.</p>
+          <p id="contactUnavailable" role="status">برای آماده‌سازی متن، جاوااسکریپت را فعال کنید. / Enable JavaScript to prepare a message.</p>
         </form>
       </div>
     </div>

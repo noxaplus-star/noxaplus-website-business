@@ -890,6 +890,8 @@ function initContactForm() {
       showToast(t("toast.copyFail"));
     }
   });
+  document.querySelector("#contactFields").disabled = false;
+  document.querySelector("#contactUnavailable").hidden = true;
 }
 
 function initCommon() {
