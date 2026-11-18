@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111320">
+  <title>برنامه‌ریز پروژه | نوکساپلاس</title>
+  <link rel="icon" href="assets/brand/logo-tile-64.png" type="image/png">
+  <script>
+    try {
+      const lang = localStorage.getItem('noxaplus_lang');
+      const theme = localStorage.getItem('noxaplus_theme');
+      document.documentElement.lang = lang === 'en' ? 'en' : 'fa';
+      document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+      document.documentElement.dataset.theme = theme === 'dark' || theme === 'light' ? theme : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch (_) {}
+  </script>
+  <link rel="stylesheet" href="css/planner.css">
+  <script src="js/planner.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#planner" data-t="skip">رفتن به برنامه‌ریز</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="NoxaPlus">
+        <img class="logo-light" src="assets/brand/mark-dark.png" alt="">
+        <img class="logo-dark" src="assets/brand/mark-light.png" alt="">
+        <span>NOXA<span class="brand-plus">+</span></span>
+      </a>
+      <div class="header-actions">
+        <a class="home-link" href="index.html"><span aria-hidden="true">↗</span> <span data-t="back">بازگشت به خانه</span></a>
+        <button class="header-button" id="language" type="button" aria-label="Switch to English">EN</button>
+        <button class="header-button theme-button" id="theme" type="button" aria-label="تغییر ظاهر"><span aria-hidden="true">◐</span></button>
+      </div>
+    </div>
+  </header>
+  <main id="planner" class="container">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-main">
+        <div class="eyebrow"><span class="eyebrow-dot"></span><span data-t="eyebrow">ابزار برنامه‌ریزی پروژه</span><span class="eyebrow-index"> / 01</span></div>
+        <h1 id="page-title" data-t="title">از ایده تا برنامه</h1>
+        <p class="intro-copy" data-t="intro">چند انتخاب ساده، تصویری روشن‌تر از مسیر پیش رو. محدوده پروژه‌تان را مشخص کنید و یک برآورد اولیه بسازید.</p>
+      </div>
+      <div class="intro-side"><span class="intro-number">01 — 03</span><span data-t="introSide">از ایده تا تصویر اولیه،<br>در چند قدم کوتاه.</span><span class="intro-arrow" aria-hidden="true">↙</span></div>
+    </section>
+
+    <div class="workspace">
+      <form id="planner-form" class="form-column" autocomplete="off">
+        <section class="panel step-panel" aria-labelledby="type-heading">
+          <div class="section-heading"><span class="step-number">01</span><div><p class="section-kicker" data-t="stepOne">نقطه شروع</p><h2 id="type-heading" data-t="typeTitle">چه چیزی می‌سازیم؟</h2><p data-t="typeHelp">یک نوع پروژه را به عنوان پایه انتخاب کنید.</p></div></div>
+          <fieldset class="choice-grid type-grid"><legend class="sr-only" data-t="typeLegend">نوع پروژه</legend>
+            <label class="choice-card"><input type="radio" name="type" value="landing" checked><span class="choice-content"><span class="choice-top"><span class="choice-icon">↗</span><span class="choice-indicator"></span></span><strong data-t="landing">صفحه فرود</strong><small data-t="landingDesc">معرفی یک محصول یا کمپین</small></span></label>
+            <label class="choice-card"><input type="radio" name="type" value="business"><span class="choice-content"><span class="choice-top"><span class="choice-icon">▦</span><span class="choice-indicator"></span></span><strong data-t="business">وب‌سایت شرکتی</strong><small data-t="businessDesc">معرفی کسب‌وکار و خدمات</small></span></label>
+            <label class="choice-card"><input type="radio" name="type" value="store"><span class="choice-content"><span class="choice-top"><span class="choice-icon">◇</span><span class="choice-indicator"></span></span><strong data-t="store">فروشگاه آنلاین</strong><small data-t="storeDesc">نمایش و فروش محصولات</small></span></label>
+            <label class="choice-card"><input type="radio" name="type" value="webapp"><span class="choice-content"><span class="choice-top"><span class="choice-icon">⌘</span><span class="choice-indicator"></span></span><strong data-t="webapp">اپلیکیشن وب</strong><small data-t="webappDesc">ابزار یا پنل تعاملی</small></span></label>
+          </fieldset>
+        </section>
+        <section class="panel step-panel" aria-labelledby="features-heading">
+          <div class="section-heading"><span class="step-number">02</span><div><p class="section-kicker" data-t="stepTwo">جزئیات پروژه</p><h2 id="features-heading" data-t="featuresTitle">چه امکاناتی نیاز دارید؟</h2><p data-t="featuresHelp">هر تعداد گزینه که با هدف شما هماهنگ است انتخاب کنید.</p></div></div>
+          <fieldset class="choice-grid feature-grid"><legend class="sr-only" data-t="featuresLegend">امکانات پروژه</legend>
+            <label class="feature"><input type="checkbox" name="feature" value="cms"><span><strong data-t="cms">مدیریت محتوا</strong><small data-t="cmsDesc">ویرایش مستقل متن و محتوا</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="multilingual"><span><strong data-t="multilingual">چندزبانه</strong><small data-t="multilingualDesc">یک زبان اضافه و چیدمان آن</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="seo"><span><strong data-t="seo">سئوی پایه</strong><small data-t="seoDesc">ساختار و تنظیمات اولیه جست‌وجو</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="booking"><span><strong data-t="booking">رزرو و نوبت‌دهی</strong><small data-t="bookingDesc">درخواست و مدیریت نوبت</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="payment"><span><strong data-t="payment">پرداخت آنلاین</strong><small data-t="paymentDesc">اتصال به یک درگاه پرداخت</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="account"><span><strong data-t="account">حساب کاربری</strong><small data-t="accountDesc">ثبت‌نام و ورود کاربران</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="analytics"><span><strong data-t="analytics">تحلیل و آمار</strong><small data-t="analyticsDesc">راه‌اندازی ابزار تحلیل بازدید</small></span><i aria-hidden="true"></i></label>
+            <label class="feature"><input type="checkbox" name="feature" value="content"><span><strong data-t="content">تولید محتوا</strong><small data-t="contentDesc">آماده‌سازی محتوای اولیه</small></span><i aria-hidden="true"></i></label>
+          </fieldset>
+        </section>
+        <section class="panel step-panel" aria-labelledby="scope-heading">
+          <div class="section-heading"><span class="step-number">03</span><div><p class="section-kicker" data-t="stepThree">اندازه کار</p><h2 id="scope-heading" data-t="scopeTitle">مقیاس پروژه چقدر است؟</h2><p data-t="scopeHelp">پیچیدگی طراحی و تعداد بخش‌های مورد نیاز را در نظر بگیرید.</p></div></div>
+          <fieldset class="scope-options"><legend class="sr-only" data-t="scopeLegend">مقیاس پروژه</legend>
+            <label><input type="radio" name="scope" value="small" checked><span><strong data-t="small">جمع‌وجور</strong><small data-t="smallDesc">محدوده ساده</small></span></label>
+            <label><input type="radio" name="scope" value="medium"><span><strong data-t="medium">متوسط</strong><small data-t="mediumDesc">جزئیات بیشتر</small></span></label>
+            <label><input type="radio" name="scope" value="large"><span><strong data-t="large">گسترده</strong><small data-t="largeDesc">پیچیدگی بالاتر</small></span></label>
+          </fieldset>
+        </section>
+        <div class="draft-row"><span><span class="save-dot" aria-hidden="true"></span><span id="save-status" data-t="saved">پیش‌نویس فقط در این دستگاه ذخیره می‌شود.</span></span><button id="clear" class="text-button" type="button" data-t="clear">پاک‌کردن پیش‌نویس</button></div>
+      </form>
+
+      <aside class="summary-column" aria-labelledby="summary-heading">
+        <div class="summary-card">
+          <div class="summary-header"><div><p class="summary-kicker" data-t="summaryKicker">نمای کلی پروژه</p><h2 id="summary-heading" data-t="summaryTitle">برآورد اولیه شما</h2></div><span class="live-badge"><span></span> <span data-t="live">زنده</span></span></div>
+          <div class="estimate"><span data-t="estimatedCost">بازه هزینه تقریبی</span><strong id="cost">—</strong><small data-t="currency">میلیون تومان</small></div>
+          <div class="estimate-time"><span><span class="time-icon" aria-hidden="true">◷</span> <span data-t="estimatedTime">زمان تقریبی اجرا</span></span><strong id="time">—</strong></div>
+          <div class="summary-divider"></div>
+          <div class="summary-details"><div><span data-t="projectLabel">نوع پروژه</span><strong id="summary-type">—</strong></div><div><span data-t="scopeLabel">مقیاس</span><strong id="summary-scope">—</strong></div><div class="features-summary"><span data-t="selectedFeatures">امکانات انتخاب‌شده</span><strong id="summary-features">—</strong></div></div>
+          <details class="assumptions"><summary data-t="how">این برآورد چگونه محاسبه می‌شود؟</summary><p data-t="formula">پایه نوع پروژه + مجموع امکانات، ضربدر ضریب مقیاس؛ سپس بازه هزینه با ۲۰٪ عدم‌قطعیت و زمان با ۲۵٪ عدم‌قطعیت محاسبه می‌شود.</p><p id="calculation"></p><p data-t="exclusions">مبالغ فرضی و به میلیون تومان‌اند. هزینه دامنه، میزبانی، اشتراک سرویس‌ها، مالیات، نگهداری و تولید محتوای اضافی لحاظ نشده‌اند. زمان به هفته کاری و با فرض آماده‌بودن ورودی‌ها و بازخورد به‌موقع است.</p></details>
+          <p class="disclaimer"><span aria-hidden="true">ⓘ</span> <span data-t="disclaimer">این اعداد صرفاً فرضی و برای برنامه‌ریزی‌اند؛ قیمت یا زمان قطعی و تعهد نوکساپلاس نیستند.</span></p>
+          <div class="summary-actions"><button id="copy" class="button primary" type="button"><span aria-hidden="true">⧉</span> <span data-t="copy">کپی خلاصه</span></button><button id="download" class="button secondary" type="button"><span aria-hidden="true">↓</span> <span data-t="download">دانلود متن</span></button><button id="print" class="button secondary" type="button"><span aria-hidden="true">↗</span> <span data-t="print">چاپ</span></button></div>
+          <div class="share-block"><button id="share" class="share-button" type="button"><span aria-hidden="true">↗</span> <span data-t="share">کپی لینک اشتراک انتخاب‌ها</span></button><p data-t="privacy">لینک فقط نوع پروژه، امکانات و مقیاس را دارد؛ نام، ایمیل یا پیام ندارد. هیچ اطلاعاتی به سرور ارسال نمی‌شود. هر کس لینک را داشته باشد انتخاب‌ها را می‌بیند.</p></div>
+          <p id="action-status" class="action-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="aside-note"><span class="aside-note-icon" aria-hidden="true">✳</span><p data-t="asideNote">برای شروع گفت‌وگو، این خلاصه را نگه دارید و جزئیات واقعی پروژه را با تیم در میان بگذارید.</p></div>
+      </aside>
+    </div>
+    <footer class="footer"><span>NOXA<span class="brand-plus">+</span> <span data-t="footer"> / ایده‌های روشن‌تر، شروع‌های بهتر</span></span><a href="index.html" data-t="back">بازگشت به خانه</a></footer>
+  </main>
+  <noscript><div class="noscript">برای استفاده از برنامه‌ریز، جاوااسکریپت را فعال کنید. / Enable JavaScript to use the planner.</div></noscript>
+</body>
+</html>
